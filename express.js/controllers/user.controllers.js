@@ -25,6 +25,8 @@ module.exports.search = function (req, res) {
 };
 
 module.exports.create = function (req, res) {
+  // request gửi lên
+  console.log(req.cookies);
   res.render("UserList/create");
 };
 
@@ -38,27 +40,13 @@ module.exports.getEdit = function (req, res) {
 };
 
 module.exports.postCreate = function (req, res) {
+  console.log(req);
+
   req.body.id = shortid.generate();
-  let errors = [];
-  console.log(!!req.body.name, !req.body.name);
-
-  if (!req.body.name) {
-    errors.push("Name is required");
-  }
-
-  if (!req.body.phone) {
-    errors.push("Phone is required");
-  }
-
-  if (errors.length) {
-    //renderlai, va van con giu gia tri nen them values
-    res.render("UserList/create", {
-      errors: errors,
-      // tat ca cac bien nguoi dung gui len
-      values: req.body,
-    });
-    return;
-  }
+  //mac
+  // req.body.avatar = req.file.path.split("/").slice(1).join("/");
+  // win
+  req.body.avatar = req.file.path.split("\\").slice(1).join("/");
   db.get("data").push(req.body).write();
   res.redirect("/users");
 };

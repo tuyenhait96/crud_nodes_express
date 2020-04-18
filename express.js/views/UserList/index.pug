@@ -11,11 +11,14 @@ block content
 
     table.table.table-striped
         tr
+            th Upload
             th Name
             th Phone
             th Actions
         each val in users
-            tr
+            tr  
+                td
+                    img(src=val.avatar, alt="avar", width="100px")
                 td= val.name
                 td= val.phone
                 td
